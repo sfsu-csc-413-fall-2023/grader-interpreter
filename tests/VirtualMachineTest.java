@@ -15,28 +15,9 @@ import interpreter.VirtualMachine;
 import interpreter.bytecode.HaltCode;
 import interpreter.bytecode.LitCode;
 import interpreter.loader.Program;
+import tests.helpers.TestVM;
 
 public class VirtualMachineTest {
-
-  private class TestVM extends VirtualMachine {
-
-    public TestVM(Program program) {
-      super(program);
-    }
-
-    @Override
-    public void executeProgram() {
-      program.getCode(0).execute(this);
-    }
-
-    public Stack<Integer> getReturnAddresses() {
-      return this.returnAddresses;
-    }
-
-    public RuntimeStack getRuntimeStack() {
-      return this.runStack;
-    }
-  }
 
   @Test
   public void testLit() {
