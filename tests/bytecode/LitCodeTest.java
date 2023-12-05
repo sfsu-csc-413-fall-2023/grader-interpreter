@@ -13,7 +13,7 @@ public class LitCodeTest {
   public void testToStringWithIdentifier() {
     LitCode code = new LitCode(List.of("LIT", "0", "zEd"));
 
-    String expected = String.format("%25s%s", "LIT 0", "int zEd = 0");
+    String expected = String.format("%-25s%s", "LIT 0 zEd", "int zEd = 0");
     assertEquals(expected, code.toString());
   }
 
@@ -21,7 +21,7 @@ public class LitCodeTest {
   public void testToStringWithLiteral() {
     LitCode code = new LitCode(List.of("LIT", "42"));
 
-    String expected = String.format("%25s%s", "LIT 42", "int 42");
+    String expected = String.format("%-25s%s", "LIT 42", "int 42");
     assertEquals(expected, code.toString());
   }
 }

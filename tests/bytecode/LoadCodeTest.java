@@ -13,7 +13,7 @@ public class LoadCodeTest {
   public void testToString() {
     LoadCode code = new LoadCode(List.of("LOAD", "9", "r"));
 
-    String expected = String.format("%25s%s", "LOAD 9", "<load r>");
+    String expected = String.format("%-25s%s", "LOAD 9 r", "<load r>");
     assertEquals(expected, code.toString());
   }
 }
