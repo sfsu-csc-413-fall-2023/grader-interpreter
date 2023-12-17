@@ -1,0 +1,20 @@
+DMP +
+GOTO start<<1>>
+LABEL Read
+READ
+RETURN Read
+LABEL Write
+LOAD 0 dummyFormal
+WRITE
+RETURN Write
+LABEL start<<1>>
+LIT 0 k
+ARGS 0
+CALL Read
+STORE 0 k
+LOAD 0 k
+ARGS 1
+CALL Write
+STORE 0 k
+POP 1
+HALT

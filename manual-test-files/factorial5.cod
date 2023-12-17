@@ -1,0 +1,46 @@
+DMP +
+GOTO start<<1>>
+LABEL Read
+READ
+RETURN Read
+LABEL Write
+LOAD 0 dummyFormal
+WRITE
+RETURN Write
+LABEL start<<1>>
+GOTO continue<<3>>
+LABEL factorial<<2>>
+LOAD 0 n
+LIT 1
+BOP ==
+FALSEBRANCH else<<4>>
+LIT 1
+RETURN factorial<<2>>
+POP 0
+GOTO continue<<5>>
+LABEL else<<4>>
+LOAD 0 n
+LOAD 0 n
+LIT 1
+BOP -
+ARGS 1
+CALL factorial<<2>>
+BOP *
+RETURN factorial<<2>>
+POP 0
+LABEL continue<<5>>
+POP 0
+LIT 0 DEFAULT-RETURN-VALUE
+RETURN factorial<<2>>
+LABEL continue<<3>>
+LIT 0 z
+LIT 5
+ARGS 1
+CALL factorial<<2>>
+STORE 0 z
+LOAD 0 z
+ARGS 1
+CALL Write
+STORE 0 z
+POP 1
+HALT

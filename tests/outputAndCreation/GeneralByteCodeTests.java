@@ -44,6 +44,30 @@ public class GeneralByteCodeTests {
     assertEquals(expectedString, getInstance(className, codeLine).toString());
   }
 
+  @ParameterizedTest
+  @MethodSource("provideNewCodeTestConditions")
+  public void testCanCreateNewCodeInstance(String className, List<String> codeLine) {
+    assertDoesNotThrow(() -> {
+      getInstance(className, codeLine);
+    });
+  }
+
+  @ParameterizedTest
+  @MethodSource("provideNewCodeTestConditions")
+  public void testNewCodeToString(String className, List<String> codeLine, String expectedString)
+      throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+      NoSuchMethodException, SecurityException, ClassNotFoundException {
+    Assume.assumeNotNull(expectedString);
+
+    assertEquals(expectedString, getInstance(className, codeLine).toString());
+  }
+
+  private static Stream<Arguments> provideNewCodeTestConditions() {
+    return Stream.of(
+        Arguments.of("interpreter.bytecode.DmpCode", List.of("DMP", "+"), "DMP +"),
+        Arguments.of("interpreter.bytecode.DmpCode", List.of("DMP", "-"), "DMP -"));
+  }
+
   private static Stream<Arguments> provideTestConditions() {
     return Stream.of(
         Arguments.of("interpreter.bytecode.ArgsCode", List.of("ARGS", "2"), "ARGS 2"),
@@ -60,8 +84,6 @@ public class GeneralByteCodeTests {
         Arguments.of("interpreter.bytecode.BopCode", List.of("BOP", "!"), "BOP !"),
         Arguments.of("interpreter.bytecode.BopCode", List.of("BOP", "!="), "BOP !="),
         Arguments.of("interpreter.bytecode.CallCode", List.of("CALL", "SoMeLaBeL"), null),
-        Arguments.of("interpreter.bytecode.DmpCode", List.of("DMP", "+"), "DMP +"),
-        Arguments.of("interpreter.bytecode.DmpCode", List.of("DMP", "-"), "DMP -"),
         Arguments.of("interpreter.bytecode.FalsebranchCode", List.of("FALSEBRANCH", "AbRanChLabEl"),
             "FALSEBRANCH AbRanChLabEl"),
         Arguments.of("interpreter.bytecode.GotoCode", List.of("GOTO", "aTargEt"), "GOTO aTargEt"),

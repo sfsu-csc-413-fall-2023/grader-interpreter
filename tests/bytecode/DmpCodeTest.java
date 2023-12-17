@@ -13,8 +13,6 @@ import interpreter.loader.Program;
 import tests.helpers.TestVirtualMachine;
 
 public class DmpCodeTest {
-  // TODO Create output "manual test" in grader
-
   @Test
   public void testDumpOn()
       throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {

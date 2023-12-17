@@ -1,2 +1,4 @@
+target/
 grader/
 grader.js
+.vscode/
