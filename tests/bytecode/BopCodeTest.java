@@ -5,41 +5,39 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import interpreter.RuntimeStack;
 import interpreter.bytecode.BopCode;
 import interpreter.bytecode.ByteCode;
 import interpreter.bytecode.LitCode;
 import interpreter.loader.Program;
-import tests.helpers.TestVM;
+import tests.helpers.TestVirtualMachine;
 
 public class BopCodeTest {
-  @Test
-  public void testToString() {
-    BopCode code = new BopCode(List.of("BOP", "+"));
-
-    assertEquals("BOP +", code.toString());
-  }
 
   @ParameterizedTest
   @MethodSource("provideOperators")
-  public void testOperator(List<ByteCode> instructions, int expectedValue) {
+  public void testOperator(List<ByteCode> instructions, int expectedValue)
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
     Program program = new Program();
     instructions.stream().forEach(code -> program.addCode(code));
+    program.resolveSymbolicAddresses();
 
-    TestVM vm = new TestVM(program);
-    vm.executeToEnd(instructions.size());
+    TestVirtualMachine vm = new TestVirtualMachine(program);
+    for (int i = 0; i < instructions.size(); i++) {
+      vm.step();
+    }
 
-    assertEquals(
-        expectedValue,
-        vm.getRuntimeStack().peek());
+    RuntimeStack runtimeStack = vm.getRuntimeStackValue();
+
+    assertEquals(expectedValue, runtimeStack.peek());
   }
 
-  private static LitCode lit(String val) {
-    return new LitCode(List.of("LIT", val));
+  private static ByteCode lit(String literal) {
+    return new LitCode(List.of("LIT", literal));
   }
 
   private static BopCode bop(String op) {

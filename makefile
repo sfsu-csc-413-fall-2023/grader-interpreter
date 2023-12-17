@@ -45,7 +45,7 @@ test: tools all-tests
 # make test METHOD_NAME=tests.packageName.TestClassName#methodName
 # For a @ParameterizedTest, the test method's parameters must be provided (example):
 # tests.lexer.LexerTest#testBuiltInOperators\(java.lang.String,lexer.daos.TokenKind,int,int\)
-test-method: tools all-tests
+test-method: all-tests
 	@echo "Running $(METHOD_NAME)..."
 	@java -jar $(JUNIT_JAR_LOCATION) -cp $(COMPILE_DIR) -m $(METHOD_NAME)
 

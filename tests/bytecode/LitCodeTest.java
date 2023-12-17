@@ -6,22 +6,44 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import interpreter.bytecode.HaltCode;
 import interpreter.bytecode.LitCode;
+import interpreter.loader.Program;
+import tests.helpers.TestVirtualMachine;
 
 public class LitCodeTest {
   @Test
-  public void testToStringWithIdentifier() {
-    LitCode code = new LitCode(List.of("LIT", "0", "zEd"));
+  public void testValue()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    Program program = new Program();
 
-    String expected = String.format("%-25s%s", "LIT 0 zEd", "int zEd = 0");
-    assertEquals(expected, code.toString());
+    program.addCode(new LitCode(List.of("LIT", "42")));
+    program.addCode(new HaltCode(List.of("HALT")));
+
+    program.resolveSymbolicAddresses();
+
+    TestVirtualMachine vm = new TestVirtualMachine(program);
+    vm.step();
+
+    assertEquals(1, vm.getProgramCounterValue());
+    assertEquals(42, vm.getRuntimeStackValue().peek());
   }
 
   @Test
-  public void testToStringWithLiteral() {
-    LitCode code = new LitCode(List.of("LIT", "42"));
+  public void testVariable()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    Program program = new Program();
 
-    String expected = String.format("%-25s%s", "LIT 42", "int 42");
-    assertEquals(expected, code.toString());
+    program.addCode(new LitCode(List.of("LIT", "0", "wow")));
+    program.addCode(new HaltCode(List.of("HALT")));
+
+    program.resolveSymbolicAddresses();
+
+    TestVirtualMachine vm = new TestVirtualMachine(program);
+    vm.step();
+
+    assertEquals(1, vm.getProgramCounterValue());
+    assertEquals(0, vm.getRuntimeStackValue().peek());
   }
+
 }
