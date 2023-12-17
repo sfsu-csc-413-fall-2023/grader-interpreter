@@ -2,3 +2,8 @@ target/
 grader/
 grader.js
 .vscode/
+github-submissions/
+graded/
+reports/
+failed/
+submissions/

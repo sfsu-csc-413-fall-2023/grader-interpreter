@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import interpreter.bytecode.*;
-import interpreter.exceptions.ByteCodeLoaderException;
+import interpreter.loader.ByteCodeLoaderException;
 import interpreter.loader.ByteCodeLoader;
 import interpreter.loader.Program;
 
