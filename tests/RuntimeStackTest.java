@@ -8,15 +8,16 @@ import java.util.Vector;
 import org.junit.jupiter.api.Test;
 
 import interpreter.RuntimeStack;
+import tests.helpers.TestRuntimeStack;
 
 public class RuntimeStackTest {
 
   @Test
-  public void testPush() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testPush()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Vector<Integer> runStack = stack.getRunStackValue();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(77);
     stack.push(1892743);
     stack.push(42);
@@ -27,11 +28,11 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testPushBoxedInt() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testPushBoxedInt()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Vector<Integer> runStack = stack.getRunStackValue();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(Integer.valueOf(77));
     stack.push(Integer.valueOf(1892743));
     stack.push(Integer.valueOf(42));
@@ -42,11 +43,10 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testPeek() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testPeek()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(1);
     stack.push(42);
     stack.push(99);
@@ -55,11 +55,10 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testPop() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testPop()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(12);
     stack.push(423);
     stack.push(9);
@@ -69,11 +68,11 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testNewFrameAtZeroOffset() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testNewFrameAtZeroOffset()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Stack<Integer> framePointers = stack.getFramePointersValue();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(42);
     stack.push(7);
     stack.push(3);
@@ -85,11 +84,11 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testNewFrameAtOneFrame() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testNewFrameAtOneFrame()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Stack<Integer> framePointers = stack.getFramePointersValue();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(42);
     stack.push(7);
     stack.push(3);
@@ -101,11 +100,10 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testNewFrameAtManyFrames() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
-
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
+  public void testNewFrameAtManyFrames()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Stack<Integer> framePointers = stack.getFramePointersValue();
 
     for (int i = 0; i < 25; i++) {
       stack.push(i);
@@ -132,11 +130,10 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testPopFrameTwoFrames() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
-
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
+  public void testPopFrameTwoFrames()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Stack<Integer> framePointers = stack.getFramePointersValue();
 
     for (int i = 0; i < 25; i++) {
       stack.push(i);
@@ -154,11 +151,10 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testPopFrameManyFrames() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
-
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
+  public void testPopFrameManyFrames()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Stack<Integer> framePointers = stack.getFramePointersValue();
 
     for (int i = 0; i < 25; i++) {
       stack.push(i);
@@ -186,11 +182,11 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testStoreMainFrameOnly() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testStoreMainFrameOnly()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Vector<Integer> runStack = stack.getRunStackValue();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(99);
     stack.push(12);
     stack.push(42);
@@ -204,11 +200,11 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testStoreManyFrames() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testStoreManyFrames()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Vector<Integer> runStack = stack.getRunStackValue();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(99);
     stack.push(12);
     stack.push(42);
@@ -228,11 +224,11 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testLoadMainFrameOnly() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testLoadMainFrameOnly()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Vector<Integer> runStack = stack.getRunStackValue();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(99);
     stack.push(12);
     stack.push(42);
@@ -248,11 +244,11 @@ public class RuntimeStackTest {
   }
 
   @Test
-  public void testLoadManyFrames() {
-    Stack<Integer> framePointers = new Stack<>();
-    Vector<Integer> runStack = new Vector<>();
+  public void testLoadManyFrames()
+      throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+    TestRuntimeStack stack = new TestRuntimeStack();
+    Vector<Integer> runStack = stack.getRunStackValue();
 
-    RuntimeStack stack = new RuntimeStack(framePointers, runStack);
     stack.push(99);
     stack.push(12);
     stack.push(42);

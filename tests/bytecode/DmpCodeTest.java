@@ -21,7 +21,7 @@ public class DmpCodeTest {
 
     vm.step();
 
-    assertTrue(vm.getIsDumping());
+    assertTrue(vm.getIsDumpingValue());
   }
 
   @Test
@@ -32,7 +32,7 @@ public class DmpCodeTest {
 
     vm.step();
 
-    assertFalse(vm.getIsDumping());
+    assertFalse(vm.getIsDumpingValue());
   }
 
   private static Program getTestProgram(String flag) {

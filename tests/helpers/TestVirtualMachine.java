@@ -15,6 +15,7 @@ public class TestVirtualMachine extends VirtualMachine {
   private Field isRunningField;
   private Field runStackField;
   private Field returnAddressesField;
+  private Field isDumpingField;
 
   public TestVirtualMachine(Program program) throws NoSuchFieldException, SecurityException {
     super(program);
@@ -22,6 +23,7 @@ public class TestVirtualMachine extends VirtualMachine {
     this.pcField = this.getClass().getSuperclass().getDeclaredField("pc");
     this.programField = this.getClass().getSuperclass().getDeclaredField("program");
     this.isRunningField = this.getClass().getSuperclass().getDeclaredField("isRunning");
+    this.isDumpingField = this.getClass().getSuperclass().getDeclaredField("isDumping");
     this.runStackField = this.getClass().getSuperclass().getDeclaredField("runStack");
     this.returnAddressesField = this.getClass().getSuperclass().getDeclaredField("returnAddresses");
   }
@@ -58,6 +60,11 @@ public class TestVirtualMachine extends VirtualMachine {
 
   public boolean getIsRunningValue() throws IllegalArgumentException, IllegalAccessException {
     this.isRunningField.setAccessible(true);
+    return (boolean) this.isRunningField.get(this);
+  }
+
+  public boolean getIsDumpingValue() throws IllegalArgumentException, IllegalAccessException {
+    this.isDumpingField.setAccessible(true);
     return (boolean) this.isRunningField.get(this);
   }
 
